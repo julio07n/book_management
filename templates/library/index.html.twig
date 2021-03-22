@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+ 
+
+
+    {% block body %}
+ 
+    <div id="header" class="header-dark-suma">
+	    <nav
+	      class="navbar navbar-expand-lg navbar-light"
+	      style="height: 70px;"
+	    >
+	      <div class="card-header mb-3">
+	      	<img class="" src="https://sumatd.com/wp-content/themes/sumaservices/assets/images/logo.png">
+	      </div>
+	      <div class="collapse navbar-collapse" id=""></div>
+	      <ul class="nav navbar-nav navbar-right">
+	        <li><a class="nav-link" href="{{logout_path()}}">Cerrar</a></li>     
+	      </ul>
+	    </nav>
+	</div>
+
+	<div class="row" style="width: 100%;">
+	 
+	    <div class="col-2" >
+ 		  	<div class="row align-items-start">
+				<ul class="nav flex-column" id="vertical-menu">
+				  <li class="nav-item">
+				    <a class="nav-link active" href="#">Home</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="#">Mis reservas</a>
+				  </li>		
+				</ul>
+			</div>
+	    </div>
+
+
+	    <div class="col-10">
+
+	 <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+            </tr>
+              <tr>
+                <td>Ashton Cox</td>
+                <td>Junior Technical Author</td>
+                <td>San Francisco</td>
+                <td>66</td>
+                <td>2009/01/12</td>
+                <td>$86,000</td>
+            </tr>
+            <tr>
+                <td>Cedric Kelly</td>
+                <td>Senior Javascript Developer</td>
+                <td>Edinburgh</td>
+                <td>22</td>
+                <td>2012/03/29</td>
+                <td>$433,060</td>
+            </tr>
+ 
+        </tbody>
+    </table>
+
+ 
+ 	    </div>
+ 	    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+ 	    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript">
+		
+		$(document).ready(function() {
+		    $('#example').DataTable();
+
+		} );
+
+	</script>
+	</div>
+
+
+
+    <div id="footer" class="header-dark-suma">
+	     
+	</div>
+
+
+
+    {% endblock %} 
+
+ 
