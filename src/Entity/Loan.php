@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\BorrowRepository;
+use App\Repository\LoanRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=BorrowRepository::class)
+ * @ORM\Entity(repositoryClass=LoanRepository::class)
  */
-class Borrow
+class Loan
 {
     /**
      * @ORM\Id
@@ -18,27 +19,35 @@ class Borrow
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\book", inversedBy="borrow")
+     * @Assert\NotBlank
+     * @ORM\ManyToOne(targetEntity="App\Entity\Book", inversedBy="loan")
      */
     private $book;
 
+ 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=80)
+     * @Assert\NotBlank
+     * @Assert\Email(
+     *     message = "El email '{{ value }}' no es un email válido."
+     * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=2)
+     * @Assert\NotBlank
      */
     private $language;
 
-    /**
-     * @ORM\Column(type="integer")
+  /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="loan")
      */
     private $createdBy;
 
@@ -51,6 +60,7 @@ class Borrow
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
+    
 
     public function getId(): ?int
     {
@@ -93,18 +103,6 @@ class Borrow
         return $this;
     }
 
-    public function getCreatedBy(): ?int
-    {
-        return $this->createdBy;
-    }
-
-    public function setCreatedBy(int $createdBy): self
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -129,17 +127,33 @@ class Borrow
         return $this;
     }
 
-    public function getBook(): ?book
+    public function getBook(): ?Book
     {
         return $this->book;
     }
 
-    public function setBook(?book $book): self
+    public function setBook(?Book $book): self
     {
         $this->book = $book;
 
         return $this;
     }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
  
+    public function __toString()
+    {
+        return '';
+    }
    
 }

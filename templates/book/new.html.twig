@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+  {% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+      $(document).ready(function() {
+
+        $( '#book_save' ).click(function() {
+    
+            $('div.error').remove();
+            
+            $( ".required" ).each(function( index ) {            
+               if( $( this ).val()=='' )
+                 $( this ).parent().append('<div class="error">Campo requerido</div>');
+            });
+
+            
+            if($('div.error').length==0)       
+              $('form[name="book"]').submit();
+
+            return false;  
+            });
+
+       });
+
+   </script>
+
+  {% endblock %}
+
+  {% block content %}
+        <div class="row">	
+			<div class="col-sm-12"> 
+				<a href="{{ path('book_index') }}" style="font-size: 12px;"><< {% trans %} back {% endtrans %}</a>
+			</div>			
+		</div>
+  		<legend>{% trans %} admin.create_book {% endtrans %}</legend>
+
+	    <div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8">{{ include('book/_form.html.twig') }}</div>
+			<div class="col-sm-2"></div>
+	    </div>
+  {% endblock %}

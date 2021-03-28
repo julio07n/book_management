@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Book;
+use App\Entity\Loan;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @method Book|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +21,42 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
-    // /**
-    //  * @return Book[] Returns an array of Book objects
-    //  */
-    /*
-    public function findByExampleField($value)
+ 
+    public function findByLibraryId($library_id, $user_id): array
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $entityManager = $this->getEntityManager();
 
-    /*
-    public function findOneBySomeField($value): ?Book
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $dql = 'SELECT b FROM App\Entity\Book b
+                WHERE b.library = :library_id
+                AND b.id NOT IN (SELECT b_2.id FROM App\Entity\Loan l JOIN l.book b_2 WHERE  l.createdBy = :user_id)
+                ORDER BY b.id ASC'; 
+        $query = $entityManager->createQuery($dql)
+                ->setParameter('library_id', $library_id)
+                ->setParameter('user_id', $user_id);
+         
+        return $query->getResult(Query::HYDRATE_ARRAY);
     }
-    */
+
+    public function isReserved($book_id): bool
+    {
+        $entityManager = $this->getEntityManager();
+
+        $dql = 'SELECT l FROM App\Entity\Loan l
+                WHERE l.book = :book_id'; 
+        $query = $entityManager->createQuery($dql)
+                ->setParameter('book_id', $book_id);
+ 
+        return !empty($query->getResult());
+    }
+  
+
+    public function findAllArray(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $dql = 'SELECT b, li FROM App\Entity\Book b JOIN b.library li ORDER BY b.id ASC'; 
+        $query = $entityManager->createQuery($dql);
+         
+        return $query->getResult(Query::HYDRATE_ARRAY);
+    }
 }

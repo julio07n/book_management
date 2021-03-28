@@ -6,16 +6,10 @@
 
     <script type="text/javascript">
  
-      function addLibrary()
+      function addBook()
       {
-          location.href = "/library/new";
+          location.href = "/book/new";
       }
-      
-      function downloadCsv()
-      {
-          location.href = "/library/csv";
-      }
-
 
       $(document).ready(function() {
 
@@ -33,13 +27,20 @@
                   "search": "Buscar"
               },
               "lengthMenu": [[10, 20, 30, -1], [10, 20, 30, "All"]],
-              "ajax": "{{ url('library_data_list') }}",
+              "ajax": "{{ url('book_data_list') }}",
               "columns": [
                   { 
                       data: null,
-                      title: "Nombre",
+                      title: "Título",
                       render: function ( data, type, row ) {
-                          return  data.name;
+                          return  data.title;
+                      }
+                  },
+                  { 
+                      data: null,
+                      title: "Biblioteca",
+                      render: function ( data, type, row ) {
+                          return  data.library;
                       }
                   },
                   { 
@@ -61,7 +62,7 @@
                       orderable: false,
                       render: function ( data, type, row ) {
  
-                         return "<a href='/library/" + data.id + "/edit'>Editar</a>";
+                         return "<a href='/book/" + data.id + "/edit'>Editar</a>";
                       }
                   },
                   {
@@ -69,7 +70,7 @@
                       orderable: false,
                       render: function ( data, type, row ) {
  
-                         return "<a href='/library/" + data.id + "/delete'>Eliminar</a>";
+                         return "<a href='/book/" + data.id + "/delete'>Eliminar</a>";
                       }
                   } 
               ],
@@ -81,16 +82,13 @@
 
  
   {% block content %}
-    <legend>{% trans %} menu.bibliotecas {% endtrans %}</legend>
+    <legend>{% trans %} menu.libros {% endtrans %}</legend>
     <table id="list" class="display" style="width:100%">
     </table>
 
     <div class="row">
        <div class="col-sm-12" >
-          <center>
-              <button type="button" class="btn btn-primary" style="" onclick="addLibrary()">{% trans %} new {% endtrans %}</button>
-              <button type="button" class="btn btn-primary" style="" onclick="downloadCsv()">{% trans %} admin.csv {% endtrans %}</button>
-          </center>            
+           <button type="button" class="btn btn-primary" style="display: flow-root; margin: 0 auto;" onclick="addBook()">{% trans %} new {% endtrans %}</button>
        </div>
     </div>
  

@@ -1,0 +1,72 @@
+{% extends 'layout.html.twig' %}
+
+  {% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+      $(document).ready(function() {
+
+        $( '#loan_save' ).click(function() {
+    
+            $('div.error').remove();
+            
+            $( ".required" ).each(function( index ) {            
+               if( $( this ).val()=='' )
+                 $( this ).parent().append('<div class="error">Campo requerido</div>');
+            });
+
+            
+            if($('div.error').length==0)       
+              $('form[name="loan"]').submit();
+
+            return false;  
+        });
+
+
+        $( '#loan_library' ).change(function(){
+
+            var select_book = $('#loan_book');
+            var options = '<option value="">Seleccionar</option>';
+
+            select_book.attr('disabled', 'disabled').find('option[value!=""]').remove();
+
+
+           if($( this ).val()!='')
+           {
+                $.ajax({     
+                    url: "{{ url('book_list') }}",
+                    type:"POST",
+                    data : { lib_id: $(this).val() },
+                    success:function(data) {
+        
+                      $.each(data, function( index, value ) {
+                          options+='<option value="' + value.id + '">' + value.title + '</option>';
+                      });
+
+                      select_book.html(options).removeAttr('disabled');                                         
+                    },
+                });
+           }
+           else
+              select_book.html(options);
+        })
+
+
+      });  
+
+
+    </script>
+
+
+  {% endblock %}
+
+  {% block content %}
+  		<legend>{% trans %} menu.reservar {% endtrans %}</legend>
+	    <div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8">{{ form(form) }}</div>
+			<div class="col-sm-2"></div>
+	    </div>
+  {% endblock %}

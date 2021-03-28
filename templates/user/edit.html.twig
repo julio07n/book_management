@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+  {% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+      $(document).ready(function() {
+
+        $( '#user_save' ).click(function() {
+    
+            $('div.error').remove();
+            
+            $( ".required" ).each(function( index ) {            
+               if( $( this ).val()=='' )
+                 $( this ).parent().append('<div class="error">Campo requerido</div>');
+            });
+
+            
+            if($('div.error').length==0)       
+              $('form[name="user"]').submit();
+
+            return false;  
+            });
+
+       });
+
+   </script>
+
+  {% endblock %}
+
+  {% block content %}
+        <div class="row">	
+			<div class="col-sm-12"> 
+				<a href="{{ path('user_index') }}" style="font-size: 12px;"><< {% trans %} back {% endtrans %}</a>
+			</div>			
+		</div>
+  		<legend>{% trans %} admin.edit_user {% endtrans %}</legend>
+
+	    <div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8">{{ include('user/_form.html.twig') }}</div>
+			<div class="col-sm-2"></div>
+	    </div>
+  {% endblock %}

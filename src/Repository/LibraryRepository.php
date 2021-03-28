@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Library;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @method Library|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +20,13 @@ class LibraryRepository extends ServiceEntityRepository
         parent::__construct($registry, Library::class);
     }
 
-    // /**
-    //  * @return Library[] Returns an array of Library objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllArray(): array
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $entityManager = $this->getEntityManager();
 
-    /*
-    public function findOneBySomeField($value): ?Library
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $dql = 'SELECT l FROM App\Entity\Library l ORDER BY l.id ASC'; 
+        $query = $entityManager->createQuery($dql);
+         
+        return $query->getResult(Query::HYDRATE_ARRAY);
     }
-    */
 }

@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
+
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +21,19 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllArray(): array
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $entityManager = $this->getEntityManager();
 
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $dql = 'SELECT u FROM App\Entity\User u ORDER BY u.id ASC'; 
+        $query = $entityManager->createQuery($dql);
+         
+        return $query->getResult(Query::HYDRATE_ARRAY);
     }
-    */
+
+    public function getRoles(): array
+    {
+        return [ 'ADMIM' => 'ROLE_ADMIN', 'LIBRARIAN' => 'ROLE_LIBRARIAN'];  
+    }
+
 }

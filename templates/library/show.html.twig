@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Library{% endblock %}
+
+{% block body %}
+    <h1>Library</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ library.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ library.name }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ library.createdAt ? library.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ library.updatedAt ? library.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('library_index') }}">back to list</a>
+
+    <a href="{{ path('library_edit', {'id': library.id}) }}">edit</a>
+
+    {{ include('library/_delete_form.html.twig') }}
+{% endblock %}

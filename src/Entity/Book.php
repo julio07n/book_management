@@ -6,6 +6,7 @@ use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
@@ -21,6 +22,7 @@ class Book
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
      */
     private $title;
 
@@ -36,18 +38,19 @@ class Book
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Library", inversedBy="book")
+     * @Assert\NotBlank
      */
     private $library;
 
 
-         /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Borrow", mappedBy="book")
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Loan", mappedBy="book")
      */
-    private $borrow;
+    private $loan;
 
     public function __construct()
     {
-        $this->borrow = new ArrayCollection();
+        $this->loan = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -104,36 +107,38 @@ class Book
     }
 
     /**
-     * @return Collection|Borrow[]
+     * @return Collection|Loan[]
      */
-    public function getBorrow(): Collection
+    public function getLoan(): Collection
     {
-        return $this->borrow;
+        return $this->loan;
     }
 
-    public function addBorrow(Borrow $borrow): self
+    public function addLoan(Loan $loan): self
     {
-        if (!$this->borrow->contains($borrow)) {
-            $this->borrow[] = $borrow;
-            $borrow->setBook($this);
+        if (!$this->loan->contains($loan)) {
+            $this->loan[] = $loan;
+            $loan->setBook($this);
         }
 
         return $this;
     }
 
-    public function removeBorrow(Borrow $borrow): self
+    public function removeLoan(Loan $loan): self
     {
-        if ($this->borrow->removeElement($borrow)) {
+        if ($this->loan->removeElement($loan)) {
             // set the owning side to null (unless already changed)
-            if ($borrow->getBook() === $this) {
-                $borrow->setBook(null);
+            if ($loan->getBook() === $this) {
+                $loan->setBook(null);
             }
         }
 
         return $this;
     }
-
  
-
-
+    public function __toString() 
+    {
+        return $this->title;
+    }
+ 
 }

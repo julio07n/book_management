@@ -1,0 +1,49 @@
+reserve:
+    success: Reserva realizada.
+    delete: Reserva eliminada.
+    book_reserved: El libro seleccionado ha sido reservado por otro usuario.
+
+admin:
+    create_user: Crear usuario
+    edit_user: Editar usuario
+    delete_user: Eliminar usuario
+    create_library: Crear biblioteca
+    edit_library: Editar biblioteca
+    delete_library: Eliminar biblioteca
+    create_book: Crear libro
+    edit_book: Editar libro
+    delete_book: Eliminar libro
+    created_success: Registro creado exitosamente.
+    edited_success: Registro editado exitosamente.
+    deleted_success: Registro eliminado exitosamente.
+    csv: Descargar CSV
+
+notificacion:        
+    es:
+        success_reserve: Libro reservado correctamente
+        remember_reservation_subject: 'Recordatorio: Reserva de libro por finalizar'
+        remember_reservation_body: "La reserva del libro <strong>book</strong> finalizará el día date_end."
+
+    ca:    
+        success_reserve: Llibre reservat correctament
+        remember_reservation_subject: 'Recordatori: Reserva de llibre por finalitzar'
+        remember_reservation_body: "La reserva de el llibre <strong>book</strong> finalitzarà el dia date_end."
+
+    book_not_available_email:
+        subject: Libro solicitado más de una vez
+        text: Libro solicitado más de una vez
+        body: El siguiente libro ha sido solicitado más de una vez.
+
+menu:
+    usuario: Usuario
+    password: Contraseña
+    cerrar_sesion: Cerrar
+    usuarios: Usuarios
+    bibliotecas: Bibliotecas
+    libros: Libros        
+    reservar: Reservar libro
+    mis_reservas: Mis reservas        
+
+back: Volver
+save: Guardar
+new: Nuevo

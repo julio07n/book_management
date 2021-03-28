@@ -102,9 +102,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     
         if(in_array('ROLE_ADMIN', $roles))
-            $url = 'admin';
+            $url = 'user_index';
         else if(in_array('ROLE_LIBRARIAN', $roles))
-            $url = 'library';
+            $url = 'reserve_new';
         else
             throw new \Exception('Error al obtener el rol del usuario.');
 
