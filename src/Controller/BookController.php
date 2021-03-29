@@ -98,7 +98,7 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="book_delete", methods={"DELETE"})
+     * @Route("/{id}/delete", name="book_delete")
      */
     public function delete(Request $request, Book $book): Response
     {
