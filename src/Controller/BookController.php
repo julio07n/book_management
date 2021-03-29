@@ -108,6 +108,8 @@ class BookController extends AbstractController
             $entityManager->flush();
         }
 
+        $this->addFlash('success', $this->translator->trans('admin.deleted_success'));
+
         return $this->redirectToRoute('book_index');
     }
 
