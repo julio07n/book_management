@@ -18,7 +18,7 @@ admin:
     deleted_success: Registro eliminado exitosamente.
     csv: Descargar CSV
 
-notificacion:        
+notification:        
     es:
         success_reserve: Libro reservado correctamente
         remember_reservation_subject: 'Recordatorio: Reserva de libro por finalizar'
